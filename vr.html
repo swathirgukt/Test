@@ -1,0 +1,45 @@
+<head><script>
+function notifyMe(){
+// request permission on page load
+	document.addEventListener('DOMContentLoaded', function () {
+	
+		if (Notification.permission !== "granted")
+		    Notification.requestPermission();
+		});
+
+		// check for notification support in your browser
+		if (!Notification) {
+		  	document.getElementById("status").innerHTML = '<div class="alert alert-danger"><strong>Failed!</strong> Desktop notifications not available in your browser. Try Chromium..</div>';
+		    return;
+		}
+		
+		if (Notification.permission !== "granted")
+		    Notification.requestPermission();
+		else {
+		  	document.getElementById("status").innerHTML = '<div class="alert alert-success" style="margin-top:50px;"><strong>Success!</strong> Desktop notifications has sent to your device..</div>';
+
+		    var notification = new Notification('Unlock the secret deals!', {
+		      icon: 'http://192.168.10.199:8080/images/1/20180927/IE-Retina-New.svg',
+		      body: "Existing customers only!",
+			   
+		    }); 
+		    notification.onclick = function () {
+		      window.open("http://localhost:8080");      
+		};
+	}
+}  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+	</head>
+	<body>
+		<div class="container text-center" style="margin-top:50px;">
+			<button class="btn btn-lg btn-primary"  onclick="notifyMe()">
+			  Notify me!
+			</button>
+			<span id="status"></span>
+		</div>
+	</body> 
